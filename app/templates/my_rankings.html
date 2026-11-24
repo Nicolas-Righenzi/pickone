@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}My Rankings{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Le mie classifiche</h1>
+
+{% for torneo, top3 in classifiche %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h5 class="mb-0">{{ torneo.category.name }}</h5>
+                <small class="text-muted">{{ torneo.completed_at.strftime('%d/%m/%Y %H:%M') }}</small>
+            </div>
+            <a href="{{ url_for('main.results', tournament_id=torneo.id) }}" class="btn btn-primary btn-sm">Classifica completa</a>
+        </div>
+        <div class="d-flex flex-wrap gap-4">
+            {% for posizione, item in top3 %}
+            <div class="d-flex align-items-center">
+                <span class="badge bg-secondary me-2">{{ posizione }}</span>
+                <img src="{{ item.image_url }}" class="img-mini rounded me-2" alt="{{ item.name }}">
+                <span>{{ item.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% else %}
+<p>Non hai ancora finito nessun torneo. Torna alla <a href="{{ url_for('main.index') }}">home</a> e scegli una categoria.</p>
+{% endfor %}
+{% endblock %}

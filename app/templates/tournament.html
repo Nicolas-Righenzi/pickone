@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Torneo {{ torneo.category.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ torneo.category.name }}</h2>
+<p class="text-muted">Confronto {{ torneo.next_index }} di {{ torneo.totale_confronti }}. Clicca l'immagine che preferisci.</p>
+
+<div class="progress mb-4">
+    <div class="progress-bar" style="width: {{ ((torneo.next_index - 1) * 100 / torneo.totale_confronti)|round|int }}%"></div>
+</div>
+
+<div class="row g-4">
+    {% for item in [sinistra, destra] %}
+    <div class="col-md-6">
+        <form method="post" action="{{ url_for('main.choose', tournament_id=torneo.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="winner_id" value="{{ item.id }}">
+            <button type="submit" class="btn btn-light w-100 p-0 scelta">
+                <img src="{{ item.image_url }}" class="img-torneo" alt="{{ item.name }}">
+                <span class="d-block fs-4 py-3">{{ item.name }}</span>
+            </button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

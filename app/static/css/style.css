@@ -1,0 +1,28 @@
+/* immagini nelle card della home */
+.img-card {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* immagini del confronto */
+.img-torneo {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+/* miniature nelle liste */
+.img-mini {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* bottone che contiene l'immagine da scegliere */
+.scelta {
+    border: 3px solid transparent;
+}
+
+.scelta:hover {
+    border-color: #0d6efd;
+}

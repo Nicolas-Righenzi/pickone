@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Scegli una categoria</h1>
+
+<div class="row g-4">
+    {% for c in categories %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+            {% if c.items %}
+            <img src="{{ c.items[0].image_url }}" class="card-img-top img-card" alt="{{ c.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ c.name }}</h5>
+                <p class="card-text">{{ c.description }}</p>
+            </div>
+            <div class="card-footer bg-white border-0">
+                <a href="{{ url_for('main.category', category_id=c.id) }}" class="btn btn-primary">Vedi categoria</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Non ci sono categorie. Lancia seed.py oppure aggiungine una dall'area admin.</p>
+    {% endfor %}
+</div>
+{% endblock %}

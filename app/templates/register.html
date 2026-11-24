@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Registrazione{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <h1 class="mb-4">Registrazione</h1>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+                {% for errore in form.username.errors %}<div class="text-danger small">{{ errore }}</div>{% endfor %}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+                {% for errore in form.email.errors %}<div class="text-danger small">{{ errore }}</div>{% endfor %}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control") }}
+                {% for errore in form.password.errors %}<div class="text-danger small">{{ errore }}</div>{% endfor %}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <p class="mt-3">Hai già un account? <a href="{{ url_for('auth.login') }}">Fai il login</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ category.name }}</h1>
+<p class="lead">{{ category.description }}</p>
+
+<p>
+    <a href="{{ url_for('main.start', category_id=category.id) }}" class="btn btn-success btn-lg">Avvia torneo</a>
+    <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary btn-lg">Indietro</a>
+</p>
+{% if not current_user.is_authenticated %}
+<p class="text-muted">Per giocare devi aver fatto il login.</p>
+{% endif %}
+
+<h4 class="mt-4">Elementi in gara ({{ category.items|length }})</h4>
+<div class="row g-3">
+    {% for item in category.items %}
+    <div class="col-6 col-md-3">
+        <div class="card h-100">
+            <img src="{{ item.image_url }}" class="card-img-top img-card" alt="{{ item.name }}">
+            <div class="card-body p-2 text-center">{{ item.name }}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

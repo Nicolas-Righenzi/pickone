@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Risultati{% endblock %}
+
+{% block content %}
+<h1>La tua classifica: {{ torneo.category.name }}</h1>
+<p class="text-muted">Torneo finito il {{ torneo.completed_at.strftime('%d/%m/%Y alle %H:%M') }}</p>
+
+<ul class="list-group mb-4">
+    {% for posizione, item in classifica %}
+    <li class="list-group-item d-flex align-items-center">
+        <span class="badge {% if posizione == 1 %}bg-warning text-dark{% else %}bg-secondary{% endif %} fs-5 me-3">{{ posizione }}</span>
+        <img src="{{ item.image_url }}" class="img-mini rounded me-3" alt="{{ item.name }}">
+        <span class="fs-5">{{ item.name }}</span>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('main.start', category_id=torneo.category_id) }}" class="btn btn-success">Gioca ancora</a>
+<a href="{{ url_for('main.my_rankings') }}" class="btn btn-outline-secondary">Le mie classifiche</a>
+{% endblock %}
